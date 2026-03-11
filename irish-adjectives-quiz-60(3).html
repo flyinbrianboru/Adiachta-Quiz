@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="ga">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aidiachtaí – 60 Ceist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1a14; --surface: #132019; --border: #2a4535;
+    --gold: #c9a84c; --gold-light: #e8cc80;
+    --green: #3a7d4a; --green-bright: #4caf65; --red-bright: #e74c3c;
+    --text: #e8e0cc; --text-muted: #8a8270;
+    --blue: #5a9fd4; --blue-dim: #1e3d5a;
+    --rose: #c06080; --rose-dim: #4a1a30;
+    --purple: #9b7fd4; --purple-dim: #2a1a4a;
+    --amber: #d4904c; --amber-dim: #3a2010;
+    --teal: #4cafa0; --teal-dim: #1a3a38;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: 2rem 1rem 4rem;
+    background-image:
+      radial-gradient(ellipse at 15% 15%, rgba(58,125,74,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 85%, rgba(201,168,76,0.05) 0%, transparent 50%);
+  }
+  header { text-align: center; margin-bottom: 1.8rem; animation: fadeDown 0.7s ease both; }
+  .knotwork { font-size: 1.5rem; color: var(--gold); letter-spacing: 0.3em; display: block; margin-bottom: 0.4rem; opacity: 0.65; }
+  h1 { font-family: 'Cinzel', serif; font-size: clamp(1rem, 3.5vw, 1.45rem); color: var(--gold); letter-spacing: 0.07em; font-weight: 600; }
+  .subtitle { font-style: italic; color: var(--text-muted); font-size: 0.95rem; margin-top: 0.3rem; }
+  .divider { width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0.9rem auto 0; opacity: 0.4; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-bottom: 1rem; width: 100%; max-width: 640px; }
+  .filter-btn { padding: 0.35rem 0.85rem; border: 1px solid var(--border); border-radius: 20px; background: transparent; color: var(--text-muted); font-family: 'EB Garamond', serif; font-size: 0.85rem; cursor: pointer; transition: all 0.18s; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.07); }
+
+  /* ── LESSON TOGGLE ── */
+  .lesson-toggle {
+    display: flex; gap: 0.5rem; justify-content: center;
+    margin-bottom: 1.2rem; width: 100%; max-width: 640px;
+  }
+  .toggle-btn {
+    padding: 0.42rem 1.1rem; border: 1px solid var(--border); border-radius: 20px;
+    background: transparent; color: var(--text-muted);
+    font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.07em;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .toggle-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+  .toggle-btn.active { background: rgba(201,168,76,0.1); border-color: var(--gold); color: var(--gold); }
+
+  /* ── LESSON PANEL ── */
+  .lesson-panel {
+    width: 100%; max-width: 640px;
+    display: none; animation: fadeUp 0.4s ease both;
+    margin-bottom: 1.4rem;
+  }
+  .lesson-panel.open { display: block; }
+
+  .lesson-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem 1.3rem; margin-bottom: 0.85rem;
+    position: relative; overflow: hidden;
+  }
+  .lesson-section::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .ls-1::before { background: linear-gradient(180deg, var(--blue), transparent); }
+  .ls-2::before { background: linear-gradient(180deg, var(--rose), transparent); }
+  .ls-3::before { background: linear-gradient(180deg, var(--purple), transparent); }
+  .ls-4::before { background: linear-gradient(180deg, var(--gold), transparent); }
+  .ls-5::before { background: linear-gradient(180deg, var(--teal), transparent); }
+
+  .lesson-title {
+    font-family: 'Cinzel', serif; font-size: 0.84rem;
+    letter-spacing: 0.09em; margin-bottom: 0.9rem; text-transform: uppercase;
+  }
+  .ls-1 .lesson-title { color: var(--blue); }
+  .ls-2 .lesson-title { color: var(--rose); }
+  .ls-3 .lesson-title { color: var(--purple); }
+  .ls-4 .lesson-title { color: var(--gold); }
+  .ls-5 .lesson-title { color: var(--teal); }
+
+  .lesson-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-bottom: 0.7rem; }
+  .lesson-table th {
+    background: rgba(255,255,255,0.04); padding: 0.38rem 0.55rem;
+    text-align: left; font-family: 'Cinzel', serif; font-size: 0.7rem;
+    letter-spacing: 0.07em; color: var(--text-muted); border-bottom: 1px solid var(--border);
+  }
+  .lesson-table td { padding: 0.38rem 0.55rem; border-bottom: 1px solid rgba(42,69,53,0.4); vertical-align: middle; }
+  .lesson-table tr:last-child td { border-bottom: none; }
+  .lesson-table .form { font-style: italic; color: var(--gold-light); }
+  .lesson-table .label { color: var(--text-muted); font-size: 0.8rem; }
+  .lesson-table .en { color: var(--text-muted); font-size: 0.78rem; font-style: normal; }
+
+  .lesson-note {
+    font-size: 0.88rem; line-height: 1.65; color: var(--text);
+    padding: 0.55rem 0.8rem; background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; margin-top: 0.5rem;
+  }
+  .lesson-note em { color: var(--gold-light); font-style: italic; }
+  .lesson-note strong { color: var(--text); }
+
+  /* ── QUIZ ── */
+  .quiz-container { width: 100%; max-width: 640px; }
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 1.4rem; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--gold)); border-radius: 2px; transition: width 0.5s ease; }
+  .score-display { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.1rem; font-size: 0.87rem; color: var(--text-muted); font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
+  .score-display span:last-child { color: var(--gold); }
+
+  .question-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem 1.7rem 1.6rem; position: relative; overflow: hidden; }
+  .question-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), var(--gold), var(--green)); opacity: 0.5; }
+
+  .form-badge { display: inline-flex; align-items: center; padding: 0.28rem 0.75rem; border-radius: 20px; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.9rem; }
+  .badge-gum { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(90,159,212,0.3); }
+  .badge-gub { background: var(--rose-dim); color: var(--rose); border: 1px solid rgba(192,96,128,0.3); }
+  .badge-iol { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(155,127,212,0.3); }
+  .cat-tag { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 10px; font-size: 0.72rem; font-family: 'Cinzel', serif; letter-spacing: 0.06em; margin-left: 0.5rem; vertical-align: middle; background: rgba(255,255,255,0.04); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .context-phrase { font-size: 1.35rem; color: var(--text-muted); margin-bottom: 0.1rem; line-height: 1.5; font-style: italic; }
+  .context-phrase .blank { display: inline-block; min-width: 2.8rem; border-bottom: 2px solid var(--gold); color: var(--gold); font-style: normal; font-weight: 500; text-align: center; animation: pulse 2s ease infinite; }
+  .context-phrase .base-ga { color: var(--text); font-style: normal; font-size: 1.35rem; font-weight: 500; }
+  .context-phrase .base-en { color: var(--text-muted); font-style: italic; font-size: 1.05rem; }
+
+  .context-en { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.25rem; font-style: italic; opacity: 0.85; }
+  .context-en .blank-en { display: inline-block; min-width: 1.8rem; border-bottom: 1px dashed rgba(201,168,76,0.35); color: rgba(201,168,76,0.55); font-style: normal; text-align: center; }
+
+  .context-label { font-size: 0.83rem; color: var(--text-muted); margin-bottom: 0.85rem; font-style: italic; }
+
+  /* Hint toggle */
+  .hint-toggle { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.28rem 0.8rem; border: 1px dashed rgba(201,168,76,0.28); border-radius: 20px; background: transparent; color: var(--text-muted); font-family: 'EB Garamond', serif; font-size: 0.84rem; font-style: italic; cursor: pointer; transition: all 0.18s; margin-bottom: 0.85rem; }
+  .hint-toggle:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+  .hint-toggle:disabled { opacity: 0.4; cursor: default; }
+  .hint-toggle .ht-arrow { font-size: 0.65rem; transition: transform 0.2s; display: inline-block; }
+  .hint-toggle.open .ht-arrow { transform: rotate(180deg); }
+
+  .hint-box { background: rgba(201,168,76,0.05); border: 1px dashed rgba(201,168,76,0.22); border-radius: 7px; padding: 0.65rem 0.9rem; margin-bottom: 0.85rem; font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; display: none; animation: slideIn 0.25s ease both; }
+  .hint-box.visible { display: block; }
+  .hint-box .hint-label { color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+  .hint-box em { color: var(--gold-light); font-style: italic; }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1rem; }
+  .opt-btn { padding: 0.8rem 0.9rem; border: 2px solid var(--border); border-radius: 8px; background: transparent; color: var(--text); font-family: 'EB Garamond', Georgia, serif; font-size: 1.1rem; font-style: italic; cursor: pointer; transition: all 0.18s; text-align: center; }
+  .opt-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-light); background: rgba(201,168,76,0.06); }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn.correct { border-color: var(--green-bright); color: var(--green-bright); background: rgba(76,175,101,0.12); }
+  .opt-btn.wrong { border-color: var(--red-bright); color: var(--red-bright); background: rgba(231,76,60,0.1); }
+  .opt-btn.show-correct { border-color: var(--green-bright); color: var(--green-bright); background: rgba(76,175,101,0.08); }
+
+  .feedback { border-radius: 8px; padding: 0.9rem 1.1rem; display: none; animation: slideIn 0.3s ease both; font-size: 0.92rem; line-height: 1.6; }
+  .feedback.correct-fb { background: rgba(76,175,101,0.07); border: 1px solid rgba(76,175,101,0.22); }
+  .feedback.wrong-fb { background: rgba(192,96,128,0.07); border: 1px solid rgba(192,96,128,0.22); }
+  .fb-header { font-family: 'Cinzel', serif; font-size: 0.92rem; margin-bottom: 0.55rem; }
+  .fb-correct-text { color: var(--green-bright); }
+  .fb-wrong-text { color: var(--red-bright); }
+  .rule-box { border-left: 3px solid var(--gold); background: rgba(201,168,76,0.04); border-radius: 0 6px 6px 0; padding: 0.75rem 0.95rem; margin-top: 0.7rem; font-size: 0.88rem; line-height: 1.7; }
+  .rule-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.25rem; }
+  .rule-text { color: var(--text); }
+  .rule-text em { color: var(--gold-light); font-style: italic; }
+  .rule-examples { color: var(--text-muted); font-size: 0.84rem; font-style: italic; margin-top: 0.35rem; }
+
+  .next-btn { width: 100%; margin-top: 0.9rem; padding: 0.75rem; background: linear-gradient(135deg, var(--green), #2a5e35); border: none; border-radius: 8px; color: #fff; font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.07em; cursor: pointer; transition: all 0.2s; display: none; }
+  .next-btn:hover { background: linear-gradient(135deg, #4caf65, #3a7d4a); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(76,175,101,0.25); }
+
+  .results { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; display: none; animation: fadeUp 0.5s ease both; }
+  .results-title { font-family: 'Cinzel', serif; font-size: 1.35rem; color: var(--gold); margin-bottom: 0.4rem; }
+  .results-score { font-size: 3.2rem; font-family: 'Cinzel', serif; color: var(--gold-light); line-height: 1; margin: 0.9rem 0; }
+  .results-fraction { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem; }
+  .results-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.5rem; max-width: 360px; margin-left: auto; margin-right: auto; }
+  .breakdown-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.7rem; font-size: 0.83rem; }
+  .breakdown-item .bd-label { color: var(--text-muted); display: block; font-size: 0.75rem; font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+  .breakdown-item .bd-score { color: var(--gold-light); font-size: 1.1rem; }
+  .results-msg { font-style: italic; color: var(--text-muted); font-size: 0.97rem; margin-bottom: 1.8rem; line-height: 1.6; max-width: 380px; margin-left: auto; margin-right: auto; }
+  .restart-btn { padding: 0.8rem 2.2rem; background: transparent; border: 2px solid var(--gold); border-radius: 8px; color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.07em; cursor: pointer; transition: all 0.2s; }
+  .restart-btn:hover { background: rgba(201,168,76,0.1); box-shadow: 0 0 16px rgba(201,168,76,0.18); }
+
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none} }
+  @keyframes slideIn { from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none} }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.45} }
+  @media(max-width:420px){ .options{grid-template-columns:1fr} .question-card{padding:1.4rem 1rem 1.2rem} .results-breakdown{grid-template-columns:1fr} .lesson-table{font-size:0.78rem} }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="knotwork">✦ ✦ ✦</span>
+  <h1>Díochlaonadh na nAidiachtaí</h1>
+  <p class="subtitle">60 ceist – na ceithre fhoirm ar fad</p>
+  <div class="divider"></div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all',this)">Gach Ceist (60)</button>
+  <button class="filter-btn" onclick="setFilter('1d',this)">1ú Díochlaonadh</button>
+  <button class="filter-btn" onclick="setFilter('2d',this)">2ú Díochlaonadh</button>
+  <button class="filter-btn" onclick="setFilter('3d',this)">3ú Díochlaonadh</button>
+  <button class="filter-btn" onclick="setFilter('coim',this)">Coimriú</button>
+  <button class="filter-btn" onclick="setFilter('neamh',this)">Neamhrialta</button>
+</div>
+
+<!-- LESSON TOGGLE -->
+<div style="width:100%;max-width:640px">
+  <div class="lesson-toggle">
+    <button class="toggle-btn" id="notaiBtn" onclick="toggleLesson()">📖 Nótaí Gramadaí</button>
+    <button class="toggle-btn active" id="tastailBtn" onclick="closeLesson()">✏️ An Tástáil</button>
+  </div>
+
+  <!-- LESSON PANEL -->
+  <div class="lesson-panel" id="lessonPanel">
+
+    <div class="lesson-section ls-1">
+      <div class="lesson-title">1ú Díochlaonadh – Consan Críochnaitheach</div>
+      <table class="lesson-table">
+        <tr><th>Bunfhoirm</th><th>Gin. u. Fir.</th><th>Gin. u. Bain.</th><th>Iolra <span style="font-weight:normal;font-family:'EB Garamond',serif;font-size:0.65rem;letter-spacing:0;text-transform:none;opacity:0.75">(nom. &amp; gin. tréaniolra)</span></th></tr>
+        <tr><td class="form">mór <span class="en">(big)</span></td><td class="form">móir</td><td class="form">móire</td><td class="form">móra</td></tr>
+        <tr><td class="form">bán <span class="en">(white)</span></td><td class="form">báin</td><td class="form">báine</td><td class="form">bána</td></tr>
+        <tr><td class="form">ard <span class="en">(high)</span></td><td class="form">aird</td><td class="form">airde</td><td class="form">arda</td></tr>
+        <tr><td class="form">fuar <span class="en">(cold)</span></td><td class="form">fuair</td><td class="form">fuaire</td><td class="form">fuara</td></tr>
+        <tr><td class="form">dubh <span class="en">(black)</span></td><td class="form">duibh</td><td class="form">duibhe</td><td class="form">dubha</td></tr>
+        <tr><td class="form">tinn <span class="en">(sick)</span></td><td class="form">tinn</td><td class="form">tinne</td><td class="form">tinne</td></tr>
+        <tr><td class="form">glic <span class="en">(cunning)</span></td><td class="form">glic</td><td class="form">glice</td><td class="form">glice</td></tr>
+        <tr><td class="form">bacach <span class="en">(lame)</span></td><td class="form">bacaigh</td><td class="form">bacaí</td><td class="form">bacacha</td></tr>
+        <tr><td class="form">salach <span class="en">(dirty)</span></td><td class="form">salaigh</td><td class="form">salaí</td><td class="form">salacha</td></tr>
+        <tr><td class="form">díreach <span class="en">(straight)</span></td><td class="form">dírigh</td><td class="form">dírí</td><td class="form">díreacha</td></tr>
+        <tr><td class="form">fada <span class="en">(long)</span></td><td class="form">fada</td><td class="form">fada</td><td class="form">fada</td></tr>
+        <tr><td class="form">bocht <span class="en">(poor)</span></td><td class="form">bhoicht*</td><td class="form">bochta**</td><td class="form">bochta</td></tr>
+      </table>
+      <div class="lesson-note">
+        <strong>Leathan →</strong> caolaítear sa Ghin. u. Fir.: <em>mór → móir</em>.<br>
+        <strong>Caol cheana →</strong> gan athrú sa Ghin. u. Fir.: <em>tinn → tinn</em>.<br>
+        <strong>-ach →</strong> <em>-aigh</em> (Gin. Fir.) / <em>-aí</em> (Gin. Bain.) / <em>-acha</em> (Iolra).<br>
+        <strong>Iolra:</strong> cuir <em>-a</em> leis más leathan; cuir <em>-e</em> más caol.<br>
+        <strong>3ú Díochlaonadh (deireadh guta):</strong> gan athrú – <em>fada → fada</em>.<br>
+        *<em>bocht</em>: Gin. Fir. = séimhiú + slenderise after masc. noun; **Gin. Bain. = without lenition.<br>
+        <strong>Séimhiú:</strong> aidiacht i ndiaidh ainmfhocail fhirinscnigh sa ghinideach: <em>mhóir, fhada, dhírigh</em>.<br>
+        <strong>Tréaniolra:</strong> aidiacht san iolra sa Ghin. Iolra (<em>na gcogaí móra</em>).<br>
+        <strong>Lagiolra:</strong> aidiacht san uatha sa Ghin. Iolra (<em>údar na leabhar mór</em>).
+      </div>
+    </div>
+
+    <div class="lesson-section ls-2">
+      <div class="lesson-title">2ú Díochlaonadh – Deireadh -(i)úil, -air</div>
+      <table class="lesson-table">
+        <tr><th>Bunfhoirm</th><th>Gin. u. Fir.</th><th>Gin. u. Bain.</th><th>Iolra <span style="font-weight:normal;font-family:'EB Garamond',serif;font-size:0.65rem;letter-spacing:0;text-transform:none;opacity:0.75">(nom. &amp; gin. tréaniolra)</span></th></tr>
+        <tr><td class="form">misniúil <span class="en">(brave)</span></td><td class="form">misniúil</td><td class="form">misniúla</td><td class="form">misniúla</td></tr>
+        <tr><td class="form">cáiliúil <span class="en">(famous)</span></td><td class="form">cáiliúil</td><td class="form">cáiliúla</td><td class="form">cáiliúla</td></tr>
+        <tr><td class="form">suimiúil <span class="en">(interesting)</span></td><td class="form">suimiúil</td><td class="form">suimiúla</td><td class="form">suimiúla</td></tr>
+        <tr><td class="form">cóir <span class="en">(fair/just)</span></td><td class="form">cóir</td><td class="form">córa</td><td class="form">córa</td></tr>
+        <tr><td class="form">deacair <span class="en">(difficult)</span></td><td class="form">deacair</td><td class="form">deacra</td><td class="form">deacra</td></tr>
+        <tr><td class="form">socair <span class="en">(calm)</span></td><td class="form">socair</td><td class="form">socra</td><td class="form">socra</td></tr>
+      </table>
+      <div class="lesson-note">
+        Sa Ghin. u. Fir.: <strong>gan athrú</strong>.<br>
+        Sa Ghin. u. Bain. agus san Iolra: <em>-úil → -úla</em>; <em>deacair/socair → deacra/socra</em>.<br>
+        <strong>Lagiolra:</strong> aidiacht san uatha – <em>brí na bhfocal cáiliúil</em>.
+      </div>
+    </div>
+
+    <div class="lesson-section ls-3">
+      <div class="lesson-title">3ú Díochlaonadh – Deireadh ar Ghuta</div>
+      <table class="lesson-table">
+        <tr><th>Bunfhoirm</th><th>Gin. u. Fir.</th><th>Gin. u. Bain.</th><th>Iolra <span style="font-weight:normal;font-family:'EB Garamond',serif;font-size:0.65rem;letter-spacing:0;text-transform:none;opacity:0.75">(nom. &amp; gin. tréaniolra)</span></th></tr>
+        <tr><td class="form">cliste <span class="en">(clever)</span></td><td class="form">cliste</td><td class="form">cliste</td><td class="form">cliste</td></tr>
+        <tr><td class="form">gasta <span class="en">(quick)</span></td><td class="form">gasta</td><td class="form">gasta</td><td class="form">gasta</td></tr>
+        <tr><td class="form">cróga <span class="en">(brave)</span></td><td class="form">cróga</td><td class="form">cróga</td><td class="form">cróga</td></tr>
+        <tr><td class="form">sona <span class="en">(happy)</span></td><td class="form">sona</td><td class="form">sona</td><td class="form">sona</td></tr>
+        <tr><td class="form">briste <span class="en">(broken)</span></td><td class="form">briste</td><td class="form">briste</td><td class="form">briste</td></tr>
+      </table>
+      <div class="lesson-note">
+        <strong>Gan athrú ar bith</strong> sna ceithre fhoirm.<br>
+        Tar éis ainmfhocal firinscneach sa ghinideach: <strong>séimhiú</strong> – <em>i lár an bhóthair fhada</em>.
+      </div>
+    </div>
+
+    <div class="lesson-section ls-4">
+      <div class="lesson-title">Aidiachtaí a Choimrítear – Syncopated Adjectives</div>
+      <table class="lesson-table">
+        <tr><th>Bunfhoirm</th><th>Gin. u. Fir.</th><th>Gin. u. Bain.</th><th>Iolra <span style="font-weight:normal;font-family:'EB Garamond',serif;font-size:0.65rem;letter-spacing:0;text-transform:none;opacity:0.75">(nom. &amp; gin. tréaniolra)</span></th></tr>
+        <tr><td class="form">íseal <span class="en">(low)</span></td><td class="form">ísil</td><td class="form">ísle</td><td class="form">ísle</td></tr>
+        <tr><td class="form">uasal <span class="en">(noble)</span></td><td class="form">uasail</td><td class="form">uaisle</td><td class="form">uaisle</td></tr>
+        <tr><td class="form">folamh <span class="en">(empty)</span></td><td class="form">folaimh</td><td class="form">foilmhe</td><td class="form">foilmhe</td></tr>
+        <tr><td class="form">ramhar <span class="en">(fat/thick)</span></td><td class="form">ramhair</td><td class="form">raimhre</td><td class="form">raimhre</td></tr>
+        <tr><td class="form">daingean <span class="en">(firm)</span></td><td class="form">daingin</td><td class="form">daingne</td><td class="form">daingne</td></tr>
+        <tr><td class="form">bodhar <span class="en">(deaf/noisy)</span></td><td class="form">bodhair</td><td class="form">bodhaire</td><td class="form">bodhaire</td></tr>
+        <tr><td class="form">láidir <span class="en">(strong)</span></td><td class="form">láidir</td><td class="form">láidre</td><td class="form">láidre</td></tr>
+        <tr><td class="form">saibhir <span class="en">(rich)</span></td><td class="form">saibhir</td><td class="form">saibhre</td><td class="form">saibhre</td></tr>
+        <tr><td class="form">domhain <span class="en">(deep)</span></td><td class="form">domhain</td><td class="form">doimhne</td><td class="form">doimhne</td></tr>
+        <tr><td class="form">aoibhinn <span class="en">(delightful)</span></td><td class="form">aoibhinn</td><td class="form">aoibhne</td><td class="form">aoibhne</td></tr>
+        <tr><td class="form">milis <span class="en">(sweet)</span></td><td class="form">milis</td><td class="form">milse</td><td class="form">milse</td></tr>
+        <tr><td class="form">righin <span class="en">(tough)</span></td><td class="form">righin</td><td class="form">righne</td><td class="form">righne</td></tr>
+        <tr><td class="form">sleamhain <span class="en">(slippery)</span></td><td class="form">sleamhain</td><td class="form">sleamhaine</td><td class="form">sleamhaine</td></tr>
+        <tr><td class="form">deacair <span class="en">(difficult)</span></td><td class="form">deacair</td><td class="form">deacra</td><td class="form">deacra</td></tr>
+      </table>
+      <div class="lesson-note">
+        Titim amach an guta sa dara siolla.<br>
+        <strong>Deireadh leathan (íseal, uasal…):</strong> Gin. Fir. = caol; Gin. Bain./Iolra = broad contraction.<br>
+        <strong>Deireadh caol (láidir, domhain…):</strong> Gin. Fir. = gan athrú; Gin. Bain./Iolra = guta titim + consan.
+      </div>
+    </div>
+
+    <div class="lesson-section ls-5">
+      <div class="lesson-title">Aidiachtaí Neamhrialta – Irregular Adjectives</div>
+      <table class="lesson-table">
+        <tr><th>Bunfhoirm</th><th>Gin. u. Fir.</th><th>Gin. u. Bain.</th><th>Iolra <span style="font-weight:normal;font-family:'EB Garamond',serif;font-size:0.65rem;letter-spacing:0;text-transform:none;opacity:0.75">(nom. &amp; gin. tréaniolra)</span></th></tr>
+        <tr><td class="form">deas <span class="en">(nice)</span></td><td class="form">deas</td><td class="form">deise</td><td class="form">deasa</td></tr>
+        <tr><td class="form">trom <span class="en">(heavy)</span></td><td class="form">trom</td><td class="form">troime</td><td class="form">troma</td></tr>
+        <tr><td class="form">lách <span class="en">(gentle)</span></td><td class="form">lách</td><td class="form">láiche</td><td class="form">lácha</td></tr>
+        <tr><td class="form">buíoch <span class="en">(grateful)</span></td><td class="form">buíoch</td><td class="form">buíche</td><td class="form">buíocha</td></tr>
+        <tr><td class="form">gearr <span class="en">(short)</span></td><td class="form">gearr</td><td class="form">girre</td><td class="form">gearra</td></tr>
+        <tr><td class="form">fliuch <span class="en">(wet)</span></td><td class="form">fliuch</td><td class="form">fliche</td><td class="form">fliucha</td></tr>
+        <tr><td class="form">cúng <span class="en">(narrow)</span></td><td class="form">cúng</td><td class="form">cúinge</td><td class="form">cúnga</td></tr>
+        <tr><td class="form">riabhach <span class="en">(brindled)</span></td><td class="form">riabhaigh</td><td class="form">riabhaí</td><td class="form">riabhacha</td></tr>
+      </table>
+      <div class="lesson-note">
+        Na haidiachtaí seo ní féidir a bhfoirmeacha ginideacha a thuar ó na rialacha caighdeánacha.<br>
+        <em>deas → deise</em> (Gin. Bain.) – guta-shift, ní caoladh simplí.<br>
+        <em>gearr → girre / trom → troime</em> – athrú guta éagsúil sa Ghin. Bain.
+      </div>
+    </div>
+
+  </div>
+  <!-- END LESSON PANEL -->
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-container">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="score-display">
+    <span id="questionCount">Ceist 1</span>
+    <span id="scoreCount">✦ 0 / 0</span>
+  </div>
+
+  <div class="question-card" id="questionCard">
+    <div>
+      <span class="form-badge" id="formBadge"></span>
+      <span class="cat-tag" id="catTag"></span>
+    </div>
+    <div class="context-phrase" id="contextPhrase"></div>
+    <div class="context-en" id="contextEn"></div>
+    <div class="context-label" id="contextLabel"></div>
+    <button class="hint-toggle" id="hintToggle" onclick="toggleHint()">
+      <span id="hintBtnText">Leid</span> <span class="ht-arrow">▼</span>
+    </button>
+    <div class="hint-box" id="hintBox">
+      <span class="hint-label">Leid / Hint</span>
+      <span id="hintText"></span>
+    </div>
+    <div class="options" id="optionsGrid"></div>
+    <div class="feedback" id="feedback">
+      <div class="fb-header" id="fbHeader"></div>
+      <div class="rule-box">
+        <span class="rule-label">An Riail / The Rule</span>
+        <div class="rule-text" id="ruleText"></div>
+        <div class="rule-examples" id="ruleExamples"></div>
+      </div>
+    </div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">An Chéad Cheist Eile →</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="results-title">Críochnaithe!</div>
+    <div class="results-score" id="finalPct"></div>
+    <div class="results-fraction" id="finalFraction"></div>
+    <div class="results-breakdown" id="breakdown"></div>
+    <div class="results-msg" id="resultsMsg"></div>
+    <button class="restart-btn" onclick="restart()">Tosaigh Arís</button>
+  </div>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  // ═══════ 1ú DÍOCHLAONADH – broad consonant ═══════
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'mór',baseEN:'big',
+   context:'saothar an fhir ___',contextEN:"the ___ man's work",
+   contextLabel:'Ginideach Uatha Firinscneach (1ú Díochlaonadh)',
+   hint:'<em>Mór</em> ends in a broad consonant. For a 1st Decl. adj. in the gen. sg. masc., consider what happens to a broad final consonant.',
+   answer:'móir',options:['móir','móire','móra','mór'],
+   ruleGA:'Consan leathan → caolaítear: <em>mór → móir</em>.',ruleEN:'Broad consonant → slenderise: gen. sg. masc.',
+   examples:'mór → móir; bán → báin; ard → aird'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'mór',baseEN:'big',
+   context:'ar son na tíre ___',contextEN:'for the sake of the ___ country',
+   contextLabel:'Ginideach Uatha Baininscneach (1ú Díochlaonadh)',
+   hint:'<em>Mór</em> – broad consonant. The gen. sg. fem. of a 1st Decl. adj. adds something after slenderising.',
+   answer:'móire',options:['móire','móir','mór','móra'],
+   ruleGA:'Gin. Uatha Bain. (leathan): caol + <em>-e</em>.',ruleEN:'Gen. sg. fem. (broad): slenderise + <em>-e</em>.',
+   examples:'mór → móire; bán → báine; ard → airde'},
+
+  {cat:'1d',badge:'iol',badgeText:'Iolra',base:'mór',baseEN:'big',
+   context:'na fir ___',contextEN:'the ___ men',
+   contextLabel:'Ainmneach/Ginideach Iolra (1ú Díochlaonadh)',
+   hint:'<em>Mór</em> – broad consonant. For the plural of a broad-ending 1st Decl. adj., a vowel suffix is added.',
+   answer:'móra',options:['móra','móire','móir','mór'],
+   ruleGA:'Iolra (leathan): cuir <em>-a</em> leis.',ruleEN:'Plural (broad-ending 1st Decl. adj.): add <em>-a</em>.',
+   examples:'mór → móra; bán → bána; ard → arda'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'bán',baseEN:'white',
+   context:'dath an éin ___',contextEN:"the ___ bird's colour",
+   contextLabel:'Ginideach Uatha Firinscneach (1ú Díochlaonadh)',
+   hint:'<em>Bán</em> – broad consonant. Apply the standard gen. sg. masc. rule for 1st Decl. adjectives.',
+   answer:'báin',options:['báin','báine','bána','bán'],
+   ruleGA:'Leathan → caol: <em>bán → báin</em>.',ruleEN:'Broad consonant → slenderise.',
+   examples:'bán → báin; gorm → goirm; dubh → duibh'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'bán',baseEN:'white',
+   context:'gile na gealaí ___',contextEN:'the brightness of the ___ moon',
+   contextLabel:'Ginideach Uatha Baininscneach (1ú Díochlaonadh)',
+   hint:'<em>Bán</em> – broad consonant. Gen. sg. fem.: slenderise and add a suffix.',
+   answer:'báine',options:['báine','báin','bán','bána'],
+   ruleGA:'Gin. Uatha Bain.: <em>bán → báine</em>.',ruleEN:'Gen. sg. fem.: slenderise + <em>-e</em>.',
+   examples:'bán → báine; gorm → goirme; dubh → duibhe'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'ard',baseEN:'high/tall',
+   context:'barr an tsléibhe ___',contextEN:'the top of the ___ mountain',
+   contextLabel:'Ginideach Uatha Firinscneach (1ú Díochlaonadh)',
+   hint:'<em>Ard</em> – broad consonant. Gen. sg. masc.: slenderise.',
+   answer:'aird',options:['aird','airde','arda','ard'],
+   ruleGA:'Leathan → caol: <em>ard → aird</em>.',ruleEN:'Gen. sg. masc.: slenderise.',
+   examples:'ard → aird; geal → gil; fuar → fuair'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'ard',baseEN:'high/tall',
+   context:'barr na carraige ___',contextEN:'the top of the ___ rock',
+   contextLabel:'Ginideach Uatha Baininscneach (1ú Díochlaonadh)',
+   hint:'<em>Ard</em> – broad consonant. Gen. sg. fem.: slenderise then add a suffix.',
+   answer:'airde',options:['airde','aird','arda','ard'],
+   ruleGA:'Gin. Uatha Bain.: <em>ard → airde</em>.',ruleEN:'Gen. sg. fem.: slenderise + <em>-e</em>.',
+   examples:'ard → airde; geal → gile; dubh → duibhe'},
+
+  {cat:'1d',badge:'iol',badgeText:'Iolra',base:'ard',baseEN:'high/tall',
+   context:'na sléibhte ___',contextEN:'the ___ mountains',
+   contextLabel:'Ainmneach Iolra (1ú Díochlaonadh)',
+   hint:'<em>Ard</em> – broad consonant. Plural of a broad-ending 1st Decl. adj.: add a vowel suffix.',
+   answer:'arda',options:['arda','airde','aird','ard'],
+   ruleGA:'Iolra: <em>ard → arda</em>.',ruleEN:'Plural: add <em>-a</em>.',
+   examples:'ard → arda; mór → móra; bán → bána'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'tinn',baseEN:'sick/ill',
+   context:'cúram an ghasúir ___',contextEN:"the care of the ___ child",
+   contextLabel:'Ginideach Uatha Firinscneach (consan caol)',
+   hint:'<em>Tinn</em> already ends in a slender consonant. Think about whether any change is needed in the gen. sg. masc. when the consonant is already slender.',
+   answer:'tinn',options:['tinn','tinne','tinnigh','tinné'],
+   ruleGA:'Consan caol cheana → <em>gan athrú</em> sa Ghin. Uatha Fir.',ruleEN:'Already slender consonant: no change in gen. sg. masc.',
+   examples:'tinn → tinn; glic → glic; dearg → dearg'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'tinn',baseEN:'sick/ill',
+   context:'aire na girseach ___',contextEN:"the ___ girl's care",
+   contextLabel:'Ginideach Uatha Baininscneach (consan caol)',
+   hint:'<em>Tinn</em> – slender consonant. For the gen. sg. fem., a suffix is added to the stem.',
+   answer:'tinne',options:['tinne','tinn','tinní','tinnigh'],
+   ruleGA:'Consan caol: Gin. Uatha Bain. = stem + <em>-e</em>.',ruleEN:'Slender consonant: gen. sg. fem. = stem + <em>-e</em>.',
+   examples:'tinn → tinne; glic → glice; binn → binne'},
+
+  {cat:'1d',badge:'iol',badgeText:'Iolra',base:'tinn',baseEN:'sick/ill',
+   context:'na páistí ___',contextEN:'the ___ children',
+   contextLabel:'Ainmneach Iolra (consan caol)',
+   hint:'<em>Tinn</em> – slender consonant. The plural of a slender-ending 1st Decl. adj. is formed by adding a suffix.',
+   answer:'tinne',options:['tinne','tinn','tinnigh','tinncha'],
+   ruleGA:'Iolra (caol): cuir <em>-e</em> leis.',ruleEN:'Plural (slender-ending adj.): add <em>-e</em>.',
+   examples:'tinn → tinne; glic → glice; binn → binne'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'glic',baseEN:'cunning/clever',
+   context:'cleas an chait ___',contextEN:"the ___ cat's trick",
+   contextLabel:'Ginideach Uatha Firinscneach (consan caol)',
+   hint:'<em>Glic</em> already ends in a slender consonant. Consider the gen. sg. masc. rule for this type.',
+   answer:'glic',options:['glic','glice','glicí','glicigh'],
+   ruleGA:'Consan caol: Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'Slender consonant: gen. sg. masc. unchanged.',
+   examples:'glic → glic; binn → binn; dearg → dearg'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'bacach',baseEN:'lame/limping',
+   context:'cos an fhir ___',contextEN:"the ___ man's leg",
+   contextLabel:'Ginideach Uatha Firinscneach (-ach)',
+   hint:'<em>Bacach</em> ends in <em>-ach</em>. This suffix has a specific gen. sg. masc. form different from the gen. sg. fem.',
+   answer:'bacaigh',options:['bacaigh','bacaí','bacacha','bacach'],
+   ruleGA:'<em>-ach → -aigh</em> sa Ghin. Uatha Fir.',ruleEN:'-ach ending: gen. sg. masc. = -aigh.',
+   examples:'bacach → bacaigh; salach → salaigh; cleasach → cleasaigh'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'salach',baseEN:'dirty',
+   context:'boladh na háite ___',contextEN:'the smell of the ___ place',
+   contextLabel:'Ginideach Uatha Baininscneach (-ach)',
+   hint:'<em>Salach</em> ends in <em>-ach</em>. The gen. sg. fem. ending is different from the gen. sg. masc.',
+   answer:'salaí',options:['salaí','salaigh','salacha','salach'],
+   ruleGA:'<em>-ach → -aí</em> sa Ghin. Uatha Bain.',ruleEN:'-ach ending: gen. sg. fem. = -aí.',
+   examples:'salach → salaí; bacach → bacaí; riabhach → riabhaí'},
+
+  {cat:'1d',badge:'iol',badgeText:'Iolra',base:'cleasach',baseEN:'playful/mischievous',
+   context:'na cairde ___',contextEN:'the ___ friends',
+   contextLabel:'Ainmneach Iolra (-ach)',
+   hint:'<em>Cleasach</em> ends in <em>-ach</em>. In the plural, a vowel suffix replaces <em>-ach</em>.',
+   answer:'cleasacha',options:['cleasacha','cleasaigh','cleasaí','cleasach'],
+   ruleGA:'Iolra: <em>-ach → -acha</em>.',ruleEN:'Plural: -ach → -acha.',
+   examples:'cleasach → cleasacha; bacach → bacacha; salach → salacha'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'dubh',baseEN:'black',
+   context:'dath an chapaill ___',contextEN:"the ___ horse's colour",
+   contextLabel:'Ginideach Uatha Firinscneach (1ú Díochlaonadh)',
+   hint:'<em>Dubh</em> – broad consonant. Gen. sg. masc.: slenderise.',
+   answer:'duibh',options:['duibh','duibhe','dubha','dubh'],
+   ruleGA:'Leathan → caol: <em>dubh → duibh</em>.',ruleEN:'Broad → slender: gen. sg. masc.',
+   examples:'dubh → duibh; bán → báin; gorm → goirm'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'dubh',baseEN:'black',
+   context:'dath na gcaorach ___',contextEN:'the colour of the ___ sheep',
+   contextLabel:'Ginideach Uatha Baininscneach (1ú Díochlaonadh)',
+   hint:'<em>Dubh</em> – broad consonant. Gen. sg. fem.: slenderise then add a suffix.',
+   answer:'duibhe',options:['duibhe','duibh','dubha','dubh'],
+   ruleGA:'Gin. Uatha Bain.: <em>dubh → duibhe</em>.',ruleEN:'Gen. sg. fem.: slenderise + <em>-e</em>.',
+   examples:'dubh → duibhe; bán → báine; gorm → goirme'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'fuar',baseEN:'cold',
+   context:'aimsir an gheimhridh ___',contextEN:'the weather of the ___ winter',
+   contextLabel:'Ginideach Uatha Firinscneach (1ú Díochlaonadh)',
+   hint:'<em>Fuar</em> – broad consonant. Gen. sg. masc.: slenderise.',
+   answer:'fuair',options:['fuair','fuaire','fuara','fuar'],
+   ruleGA:'Leathan → caol: <em>fuar → fuair</em>.',ruleEN:'Gen. sg. masc.: slenderise.',
+   examples:'fuar → fuair; geal → gil; cam → caim'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'fuar',baseEN:'cold',
+   context:'oíche na stoirme ___',contextEN:'the night of the ___ storm',
+   contextLabel:'Ginideach Uatha Baininscneach (1ú Díochlaonadh)',
+   hint:'<em>Fuar</em> – broad consonant. Gen. sg. fem.: slenderise then add a suffix.',
+   answer:'fuaire',options:['fuaire','fuair','fuara','fuar'],
+   ruleGA:'Gin. Uatha Bain.: <em>fuar → fuaire</em>.',ruleEN:'Gen. sg. fem.: slenderise + <em>-e</em>.',
+   examples:'fuar → fuaire; geal → gile; cam → caime'},
+
+  // ═══════ 2ú DÍOCHLAONADH ═══════
+  {cat:'2d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'cáiliúil',baseEN:'famous',
+   context:'saothar an scríbhneora ___',contextEN:"the ___ writer's work",
+   contextLabel:'Ginideach Uatha Firinscneach (2ú Díochlaonadh)',
+   hint:'<em>Cáiliúil</em> ends in <em>-úil</em> – 2nd Declension. Think about what happens to this type in the gen. sg. masc.',
+   answer:'cáiliúil',options:['cáiliúil','cáiliúla','cáiliúile','cáiliú'],
+   ruleGA:'2ú Díochlaonadh (<em>-úil</em>): Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'2nd Decl. adj. (-úil): gen. sg. masc. unchanged.',
+   examples:'cáiliúil → cáiliúil; misniúil → misniúil; suimiúil → suimiúil'},
+
+  {cat:'2d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'cáiliúil',baseEN:'famous',
+   context:'stair na habhann ___',contextEN:'the history of the ___ river',
+   contextLabel:'Ginideach Uatha Baininscneach (2ú Díochlaonadh)',
+   hint:'<em>Cáiliúil</em> – 2nd Decl. The <em>-úil</em> ending changes in the gen. sg. fem. and plural.',
+   answer:'cáiliúla',options:['cáiliúla','cáiliúil','cáiliúile','cáiliúlacha'],
+   ruleGA:'2ú Díochlaonadh: Gin. Uatha Bain. = <em>-úil → -úla</em>.',ruleEN:'Gen. sg. fem.: <em>-úil → -úla</em>.',
+   examples:'cáiliúil → cáiliúla; misniúil → misniúla; suimiúil → suimiúla'},
+
+  {cat:'2d',badge:'iol',badgeText:'Iolra',base:'cáiliúil',baseEN:'famous',
+   context:'na scéalta ___',contextEN:'the ___ stories',
+   contextLabel:'Ainmneach Iolra (2ú Díochlaonadh)',
+   hint:'<em>Cáiliúil</em> – 2nd Decl. The plural form is the same as the gen. sg. fem.',
+   answer:'cáiliúla',options:['cáiliúla','cáiliúil','cáiliúlacha','cáiliúileach'],
+   ruleGA:'Iolra 2ú Díochlaonadh = Gin. Uatha Bain.: <em>-úil → -úla</em>.',ruleEN:'Plural = gen. sg. fem. form.',
+   examples:'cáiliúil → cáiliúla; misniúil → misniúla'},
+
+  {cat:'2d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'misniúil',baseEN:'brave/courageous',
+   context:'gníomh an laoich ___',contextEN:"the ___ hero's deed",
+   contextLabel:'Ginideach Uatha Firinscneach (2ú Díochlaonadh)',
+   hint:'<em>Misniúil</em> – 2nd Decl. (<em>-úil</em> ending). Recall the gen. sg. masc. rule for this declension.',
+   answer:'misniúil',options:['misniúil','misniúla','misniúile','misniúl'],
+   ruleGA:'<em>-úil</em>: Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'-úil ending: gen. sg. masc. = unchanged.',
+   examples:'misniúil → misniúil; suimiúil → suimiúil; báúil → báúil'},
+
+  {cat:'2d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'suimiúil',baseEN:'interesting',
+   context:'críoch na hóráide ___',contextEN:'the end of the ___ speech',
+   contextLabel:'Ginideach Uatha Baininscneach (2ú Díochlaonadh)',
+   hint:'<em>Suimiúil</em> – 2nd Decl. The <em>-úil</em> ending changes in a predictable way for the gen. sg. fem.',
+   answer:'suimiúla',options:['suimiúla','suimiúil','suimiú','suimiúileach'],
+   ruleGA:'<em>-úil → -úla</em> sa Ghin. Uatha Bain.',ruleEN:'-úil → -úla for gen. sg. fem.',
+   examples:'suimiúil → suimiúla; cáiliúil → cáiliúla; cosúil → cosúla'},
+
+  {cat:'2d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'deacair',baseEN:'difficult',
+   context:'obair an chéirde ___',contextEN:"the ___ craftsman's work",
+   contextLabel:'Ginideach Uatha Firinscneach (2ú Díochlaonadh)',
+   hint:'<em>Deacair</em> – 2nd Decl. Consider the gen. sg. masc. rule for this declension.',
+   answer:'deacair',options:['deacair','deacra','deacrach','deacaire'],
+   ruleGA:'<em>Deacair</em>: Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'Deacair: gen. sg. masc. unchanged.',
+   examples:'deacair → deacair; cóir → cóir; socair → socair'},
+
+  {cat:'2d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'deacair',baseEN:'difficult',
+   context:'neart na faidhbe ___',contextEN:'the scale of the ___ problem',
+   contextLabel:'Ginideach Uatha Baininscneach (2ú Díochlaonadh)',
+   hint:'<em>Deacair</em> – 2nd Decl. In the gen. sg. fem. this adjective undergoes syncopation: inner vowels drop out.',
+   answer:'deacra',options:['deacra','deacair','deacre','deacrach'],
+   ruleGA:'<em>Deacair</em>: Gin. Uatha Bain. = <em>deacra</em> (coimriú).',ruleEN:'Deacair: gen. sg. fem. = deacra.',
+   examples:'deacair → deacra; socair → socra; cóir → córa'},
+
+  {cat:'2d',badge:'iol',badgeText:'Iolra',base:'cóir',baseEN:'fair/just',
+   context:'na daoine ___',contextEN:'the ___ people',
+   contextLabel:'Ainmneach Iolra (2ú Díochlaonadh)',
+   hint:'<em>Cóir</em> – 2nd Decl. The plural form is the same as the gen. sg. fem.',
+   answer:'córa',options:['córa','cóir','cóire','córach'],
+   ruleGA:'<em>Cóir</em>: Iolra = <em>córa</em>.',ruleEN:'Cóir: plural = córa.',
+   examples:'cóir → córa; socair → socra; deacair → deacra'},
+
+  // ═══════ 3ú DÍOCHLAONADH ═══════
+  {cat:'3d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'cliste',baseEN:'clever',
+   context:'gliceas an dalta ___',contextEN:"the ___ pupil's cleverness",
+   contextLabel:'Ginideach Uatha Firinscneach (3ú Díochlaonadh)',
+   hint:'<em>Cliste</em> ends in a vowel – 3rd Decl. adjective. Consider the single rule that applies to all four forms of this declension.',
+   answer:'cliste',options:['cliste','clistí','clisteach','clistech'],
+   ruleGA:'3ú Díochlaonadh (guta): <em>gan athrú</em> in aon fhoirm.',ruleEN:'3rd Decl. adj. (vowel ending): no change in any form.',
+   examples:'cliste → cliste; gasta → gasta; cróga → cróga'},
+
+  {cat:'3d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'gasta',baseEN:'quick/fast',
+   context:'luas na gaoithe ___',contextEN:'the speed of the ___ wind',
+   contextLabel:'Ginideach Uatha Baininscneach (3ú Díochlaonadh)',
+   hint:'<em>Gasta</em> ends in a vowel – 3rd Decl. The same single rule applies in all forms.',
+   answer:'gasta',options:['gasta','gastacha','gastaí','gastach'],
+   ruleGA:'3ú Díochlaonadh: <em>gan athrú</em>.',ruleEN:'3rd Decl. adj.: no change.',
+   examples:'gasta → gasta; cliste → cliste; sona → sona'},
+
+  {cat:'3d',badge:'iol',badgeText:'Iolra',base:'cróga',baseEN:'brave',
+   context:'na laochra ___',contextEN:'the ___ heroes',
+   contextLabel:'Ainmneach Iolra (3ú Díochlaonadh)',
+   hint:'<em>Cróga</em> ends in a vowel – 3rd Decl. The plural follows the same rule as all other forms.',
+   answer:'cróga',options:['cróga','crógacha','crógaí','crógach'],
+   ruleGA:'3ú Díochlaonadh Iolra: <em>gan athrú</em>.',ruleEN:'3rd Decl. adj. plural: no change.',
+   examples:'cróga → cróga; sona → sona; réidh → réidh'},
+
+  {cat:'3d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'sona',baseEN:'happy',
+   context:'saol an duine ___',contextEN:"the ___ person's life",
+   contextLabel:'Ginideach Uatha Firinscneach (3ú Díochlaonadh)',
+   hint:'<em>Sona</em> ends in a vowel. Think about which declension this belongs to.',
+   answer:'sona',options:['sona','sonaí','sonach','sone'],
+   ruleGA:'3ú Díochlaonadh: <em>sona → sona</em> i ngach foirm.',ruleEN:'Vowel-ending adj.: no change in any form.',
+   examples:'sona → sona; briste → briste; réidh → réidh'},
+
+  {cat:'3d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'briste',baseEN:'broken',
+   context:'luach an soithigh ___',contextEN:'the value of the ___ vessel',
+   contextLabel:'Ginideach Uatha Baininscneach (3ú Díochlaonadh)',
+   hint:'<em>Briste</em> ends in a vowel – 3rd Decl. No change in any form.',
+   answer:'briste',options:['briste','bristí','bristeach','bristé'],
+   ruleGA:'3ú Díochlaonadh: <em>briste → briste</em>.',ruleEN:'No change in any form.',
+   examples:'briste → briste; cróga → cróga; gasta → gasta'},
+
+  // ═══════ COIMRIÚ ═══════
+  {cat:'coim',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'íseal',baseEN:'low',
+   context:'glór an fhir ___',contextEN:"the ___ man's voice",
+   contextLabel:'Ginideach Uatha Firinscneach (coimriú)',
+   hint:'<em>Íseal</em> is syncopated: the vowel in the second syllable drops. In the gen. sg. masc., the remaining consonant also slenderises.',
+   answer:'ísil',options:['ísil','ísle','íseal','ísligh'],
+   ruleGA:'Coimriú (<em>íseal</em>): Gin. Uatha Fir. = <em>ísil</em>.',ruleEN:'Syncopated íseal: gen. sg. masc. = ísil.',
+   examples:'íseal → ísil; uasal → uasail; folamh → folaimh'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'íseal',baseEN:'low',
+   context:'fuaim na gaoithe ___',contextEN:'the sound of the ___ wind',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Íseal</em> – syncopated. In the gen. sg. fem. the inner vowel drops but the ending stays broad.',
+   answer:'ísle',options:['ísle','ísil','íseal','ísleach'],
+   ruleGA:'Coimriú (<em>íseal</em>): Gin. Uatha Bain. = <em>ísle</em>.',ruleEN:'Syncopated íseal: gen. sg. fem. = ísle.',
+   examples:'íseal → ísle; uasal → uaisle; folamh → foilmhe'},
+
+  {cat:'coim',badge:'iol',badgeText:'Iolra',base:'íseal',baseEN:'low',
+   context:'na ballaí ___',contextEN:'the ___ walls',
+   contextLabel:'Ainmneach Iolra (coimriú)',
+   hint:'<em>Íseal</em> – syncopated. The plural form is the same as which other form of this adjective?',
+   answer:'ísle',options:['ísle','ísil','íseal','ísleacha'],
+   ruleGA:'Iolra = Gin. Uatha Bain.: <em>ísle</em>.',ruleEN:'Plural of íseal = same as gen. sg. fem.',
+   examples:'íseal: ísil (Gin. Fir.) / ísle (Gin. Bain. & Iolra)'},
+
+  {cat:'coim',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'uasal',baseEN:'noble',
+   context:'clann an fhir ___',contextEN:"the ___ man's family",
+   contextLabel:'Ginideach Uatha Firinscneach (coimriú)',
+   hint:'<em>Uasal</em> – syncopated. In the gen. sg. masc., the inner vowel drops and the consonant slenderises.',
+   answer:'uasail',options:['uasail','uaisle','uasal','uaslaigh'],
+   ruleGA:'Coimriú (<em>uasal</em>): Gin. Uatha Fir. = <em>uasail</em>.',ruleEN:'Syncopated uasal: gen. sg. masc. = uasail.',
+   examples:'uasal → uasail; íseal → ísil; folamh → folaimh'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'uasal',baseEN:'noble',
+   context:'croí na mná ___',contextEN:"the ___ woman's heart",
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Uasal</em> – syncopated. In the gen. sg. fem., the inner vowel drops producing a broad ending.',
+   answer:'uaisle',options:['uaisle','uasail','uasal','uaslacha'],
+   ruleGA:'Coimriú (<em>uasal</em>): Gin. Uatha Bain. = <em>uaisle</em>.',ruleEN:'Syncopated uasal: gen. sg. fem. = uaisle.',
+   examples:'uasal → uaisle; íseal → ísle; folamh → foilmhe'},
+
+  {cat:'coim',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'láidir',baseEN:'strong',
+   context:'neart an fhir ___',contextEN:"the ___ man's strength",
+   contextLabel:'Ginideach Uatha Firinscneach (coimriú)',
+   hint:'<em>Láidir</em> is syncopated but already ends in a slender consonant. Think about whether a slender-ending syncopated adj. changes in the gen. sg. masc.',
+   answer:'láidir',options:['láidir','láidre','láidri','láidrigh'],
+   ruleGA:'Coimriú (<em>láidir</em>): Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'Syncopated adj. already slender: gen. sg. masc. unchanged.',
+   examples:'láidir → láidir; domhain → domhain; saibhir → saibhir'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'láidir',baseEN:'strong',
+   context:'neart na gaoithe ___',contextEN:'the strength of the ___ wind',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Láidir</em> – syncopated. In the gen. sg. fem., the inner vowel <em>-i-</em> drops out.',
+   answer:'láidre',options:['láidre','láidir','láidrí','láidrigh'],
+   ruleGA:'Coimriú (<em>láidir</em>): Gin. Uatha Bain. = <em>láidre</em>.',ruleEN:'Syncopated láidir: gen. sg. fem. = láidre.',
+   examples:'láidir → láidre; saibhir → saibhre; daibhir → daibhre'},
+
+  {cat:'coim',badge:'iol',badgeText:'Iolra',base:'láidir',baseEN:'strong',
+   context:'na fir ___',contextEN:'the ___ men',
+   contextLabel:'Ainmneach Iolra (coimriú)',
+   hint:'<em>Láidir</em> – syncopated. The plural form is the same as which other form?',
+   answer:'láidre',options:['láidre','láidir','láidrí','láidrach'],
+   ruleGA:'Iolra <em>láidir</em> = Gin. Uatha Bain.',ruleEN:'Plural of láidir = same as gen. sg. fem.',
+   examples:'láidir → láidir (Gin. Fir.) / láidre (Gin. Bain. & Iolra)'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'saibhir',baseEN:'rich/wealthy',
+   context:'croí na mná ___',contextEN:"the ___ woman's heart",
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Saibhir</em> – syncopated. In the gen. sg. fem., the inner vowel drops. Compare with <em>láidir</em>.',
+   answer:'saibhre',options:['saibhre','saibhir','saibhrí','saibhreach'],
+   ruleGA:'Coimriú (<em>saibhir</em>): Gin. Uatha Bain. = <em>saibhre</em>.',ruleEN:'Syncopated saibhir: gen. sg. fem. = saibhre.',
+   examples:'saibhir → saibhre; daibhir → daibhre; láidir → láidre'},
+
+  {cat:'coim',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'domhain',baseEN:'deep',
+   context:'fréamh na faidhbe ___',contextEN:'the root of the ___ problem',
+   contextLabel:'Ginideach Uatha Firinscneach (coimriú)',
+   hint:'<em>Domhain</em> – syncopated and already ends in a slender consonant. Think about what happens in the gen. sg. masc. for this type.',
+   answer:'domhain',options:['domhain','doimhne','domhainn','domhna'],
+   ruleGA:'Coimriú (<em>domhain</em>): Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'Syncopated domhain: gen. sg. masc. unchanged.',
+   examples:'domhain → domhain; righin → righin; milis → milis'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'domhain',baseEN:'deep',
+   context:'bun na farraige ___',contextEN:'the bottom of the ___ sea',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Domhain</em> – syncopated. In the gen. sg. fem., the inner vowel <em>-a-</em> drops and the vowel quality shifts.',
+   answer:'doimhne',options:['doimhne','domhain','domhna','doimhní'],
+   ruleGA:'Coimriú (<em>domhain</em>): Gin. Uatha Bain. = <em>doimhne</em>.',ruleEN:'Syncopated domhain: gen. sg. fem. = doimhne.',
+   examples:'domhain → doimhne; aoibhinn → aoibhne; bodhar → bodhaire'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'aoibhinn',baseEN:'delightful/pleasant',
+   context:'cuimhní na háite ___',contextEN:'the memories of the ___ place',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Aoibhinn</em> – syncopated. The inner syllable contracts in the gen. sg. fem.',
+   answer:'aoibhne',options:['aoibhne','aoibhinn','aoibhní','aoibhnigh'],
+   ruleGA:'Coimriú (<em>aoibhinn</em>): Gin. Uatha Bain. = <em>aoibhne</em>.',ruleEN:'Syncopated aoibhinn: gen. sg. fem. = aoibhne.',
+   examples:'aoibhinn → aoibhne; bodhar → bodhaire; righin → righne'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'deacair',baseEN:'difficult',
+   context:'neart na faidhbe ___',contextEN:'the depth of the ___ problem',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Deacair</em> is syncopated. In the gen. sg. fem., the inner vowels <em>-ai-</em> drop out.',
+   answer:'deacra',options:['deacra','deacair','deacre','deacrach'],
+   ruleGA:'Coimriú (<em>deacair</em>): Gin. Uatha Bain. = <em>deacra</em>.',ruleEN:'Syncopated deacair: gen. sg. fem. = deacra.',
+   examples:'deacair → deacra; socair → socra; cóir → córa'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'daingean',baseEN:'firm/solid',
+   context:'ballaí na cathrach ___',contextEN:'the walls of the ___ city',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Daingean</em> – syncopated. The inner vowel <em>-ea-</em> drops in the gen. sg. fem.',
+   answer:'daingne',options:['daingne','daingin','daingean','daingní'],
+   ruleGA:'Coimriú (<em>daingean</em>): Gin. Bain. = <em>daingne</em>.',ruleEN:'Syncopated daingean: gen. sg. fem. = daingne.',
+   examples:'daingean → daingin (Gin. Fir.) / daingne (Gin. Bain.)'},
+
+  {cat:'coim',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'daingean',baseEN:'firm/solid',
+   context:'balla an dúin ___',contextEN:'the wall of the ___ fort',
+   contextLabel:'Ginideach Uatha Firinscneach (coimriú)',
+   hint:'<em>Daingean</em> – syncopated. In the gen. sg. masc., the inner vowel <em>-ea-</em> drops and the consonant slenderises.',
+   answer:'daingin',options:['daingin','daingne','daingean','daingní'],
+   ruleGA:'Coimriú (<em>daingean</em>): Gin. Uatha Fir. = <em>daingin</em>.',ruleEN:'Syncopated daingean: gen. sg. masc. = daingin.',
+   examples:'daingean → daingin; ramhar → ramhair; folamh → folaimh'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'milis',baseEN:'sweet',
+   context:'blas na torthaí ___',contextEN:'the taste of the ___ fruit',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Milis</em> – syncopated. The inner vowel drops in the gen. sg. fem., leaving a consonant cluster.',
+   answer:'milse',options:['milse','milis','milsí','milseach'],
+   ruleGA:'Coimriú (<em>milis</em>): Gin. Uatha Bain. = <em>milse</em>.',ruleEN:'Syncopated milis: gen. sg. fem. = milse.',
+   examples:'milis → milse; righin → righne; tirim → tirime'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'righin',baseEN:'tough/stubborn',
+   context:'nádúr na ceiste ___',contextEN:'the nature of the ___ question',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Righin</em> – syncopated. The inner vowel contracts in the gen. sg. fem.',
+   answer:'righne',options:['righne','righin','rightí','righnigh'],
+   ruleGA:'Coimriú (<em>righin</em>): Gin. Uatha Bain. = <em>righne</em>.',ruleEN:'Syncopated righin: gen. sg. fem. = righne.',
+   examples:'righin → righne; milis → milse; tirim → tirime'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'folamh',baseEN:'empty',
+   context:'bun an chléibhe ___',contextEN:'the bottom of the ___ basket',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Folamh</em> – syncopated. The vowel quality shifts in the gen. sg. fem.',
+   answer:'foilmhe',options:['foilmhe','folaimh','folamh','foilmhí'],
+   ruleGA:'Coimriú (<em>folamh</em>): Gin. Uatha Bain. = <em>foilmhe</em>.',ruleEN:'Syncopated folamh: gen. sg. fem. = foilmhe.',
+   examples:'folamh → folaimh (Gin. Fir.) / foilmhe (Gin. Bain.)'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'ramhar',baseEN:'fat/thick',
+   context:'luas na bó ___',contextEN:'the pace of the ___ cow',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Ramhar</em> – syncopated. In the gen. sg. fem., the vowel shifts and contracts.',
+   answer:'raimhre',options:['raimhre','ramhair','ramhar','raimhrí'],
+   ruleGA:'Coimriú (<em>ramhar</em>): Gin. Uatha Bain. = <em>raimhre</em>.',ruleEN:'Syncopated ramhar: gen. sg. fem. = raimhre.',
+   examples:'ramhar → ramhair (Gin. Fir.) / raimhre (Gin. Bain.)'},
+
+  // ═══════ NEAMHRIALTA ═══════
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'deas',baseEN:'nice/pretty',
+   context:'dath na héide ___',contextEN:'the colour of the ___ uniform',
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Deas</em> is irregular. It ends in a broad consonant but the gen. sg. fem. does not follow the usual broad pattern – the vowel quality shifts.',
+   answer:'deise',options:['deise','deas','deasa','deasta'],
+   ruleGA:'<em>Deas</em> (neamhrialta): Gin. Uatha Bain. = <em>deise</em>.',ruleEN:'Irregular deas: gen. sg. fem. = deise.',
+   examples:'deas: deas / deise / deasa'},
+
+  {cat:'neamh',badge:'iol',badgeText:'Iolra',base:'deas',baseEN:'nice/pretty',
+   context:'na háiteanna ___',contextEN:'the ___ places',
+   contextLabel:'Ainmneach Iolra (neamhrialta)',
+   hint:'<em>Deas</em> is irregular. The plural does not simply follow the slender + <em>-e</em> pattern.',
+   answer:'deasa',options:['deasa','deise','deas','deasach'],
+   ruleGA:'<em>Deas</em>: Iolra = <em>deasa</em>.',ruleEN:'Irregular deas: plural = deasa.',
+   examples:'deas: deas / deise / deasa'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'trom',baseEN:'heavy',
+   context:'ualach na hoibre ___',contextEN:'the burden of the ___ work',
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Trom</em> is irregular. The gen. sg. fem. is not formed by simple slenderising + <em>-e</em>.',
+   answer:'troime',options:['troime','trom','troma','troimeach'],
+   ruleGA:'<em>Trom</em> (neamhrialta): Gin. Uatha Bain. = <em>troime</em>.',ruleEN:'Irregular trom: gen. sg. fem. = troime.',
+   examples:'trom: trom / troime / troma'},
+
+  {cat:'neamh',badge:'iol',badgeText:'Iolra',base:'trom',baseEN:'heavy',
+   context:'na malaí ___',contextEN:'the ___ bags',
+   contextLabel:'Ainmneach Iolra (neamhrialta)',
+   hint:'<em>Trom</em> is irregular. The plural takes a broad vowel suffix.',
+   answer:'troma',options:['troma','troime','trom','tromach'],
+   ruleGA:'<em>Trom</em>: Iolra = <em>troma</em>.',ruleEN:'Irregular trom: plural = troma.',
+   examples:'trom: trom / troime / troma'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'lách',baseEN:'gentle/kind',
+   context:'nádúr na mná ___',contextEN:"the ___ woman's nature",
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Lách</em> ends in a long vowel + <em>-ch</em>. This type is irregular – the gen. sg. fem. is unpredictable from the standard rules.',
+   answer:'láiche',options:['láiche','lách','lácha','láchaí'],
+   ruleGA:'<em>Lách</em> (neamhrialta): Gin. Uatha Bain. = <em>láiche</em>.',ruleEN:'Irregular lách: gen. sg. fem. = láiche.',
+   examples:'lách: lách / láiche / lácha'},
+
+  {cat:'neamh',badge:'iol',badgeText:'Iolra',base:'lách',baseEN:'gentle/kind',
+   context:'na comharsana ___',contextEN:'the ___ neighbours',
+   contextLabel:'Ainmneach Iolra (neamhrialta)',
+   hint:'<em>Lách</em> is irregular. The plural takes a broad ending.',
+   answer:'lácha',options:['lácha','láiche','lách','láchaí'],
+   ruleGA:'<em>Lách</em>: Iolra = <em>lácha</em>.',ruleEN:'Irregular lách: plural = lácha.',
+   examples:'lách: lách / láiche / lácha'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'buíoch',baseEN:'grateful/thankful',
+   context:'croí na mná ___',contextEN:"the ___ woman's heart",
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Buíoch</em> ends in a long diphthong + <em>-ch</em> and is irregular. The gen. sg. fem. is unpredictable from the standard rules.',
+   answer:'buíche',options:['buíche','buíoch','buíocha','buíochí'],
+   ruleGA:'<em>Buíoch</em> (neamhrialta): Gin. Uatha Bain. = <em>buíche</em>.',ruleEN:'Irregular buíoch: gen. sg. fem. = buíche.',
+   examples:'buíoch: buíoch / buíche / buíocha'},
+
+  {cat:'neamh',badge:'iol',badgeText:'Iolra',base:'buíoch',baseEN:'grateful/thankful',
+   context:'na daoine ___',contextEN:'the ___ people',
+   contextLabel:'Ainmneach Iolra (neamhrialta)',
+   hint:'<em>Buíoch</em> is irregular. The plural takes a broad ending.',
+   answer:'buíocha',options:['buíocha','buíche','buíoch','buíochaí'],
+   ruleGA:'<em>Buíoch</em>: Iolra = <em>buíocha</em>.',ruleEN:'Irregular buíoch: plural = buíocha.',
+   examples:'buíoch: buíoch / buíche / buíocha'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'gearr',baseEN:'short',
+   context:'fad an chóta ___',contextEN:'the length of the ___ coat',
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Gearr</em> is irregular. The gen. sg. fem. involves a vowel shift rather than simple slenderising.',
+   answer:'girre',options:['girre','gearr','gearra','gearrach'],
+   ruleGA:'<em>Gearr</em> (neamhrialta): Gin. Uatha Bain. = <em>girre</em>.',ruleEN:'Irregular gearr: gen. sg. fem. = girre.',
+   examples:'gearr: gearr / girre / gearra'},
+
+  {cat:'neamh',badge:'iol',badgeText:'Iolra',base:'gearr',baseEN:'short',
+   context:'na cótaí ___',contextEN:'the ___ coats',
+   contextLabel:'Ainmneach Iolra (neamhrialta)',
+   hint:'<em>Gearr</em> is irregular. The plural takes a broad ending.',
+   answer:'gearra',options:['gearra','girre','gearr','gearrach'],
+   ruleGA:'<em>Gearr</em>: Iolra = <em>gearra</em>.',ruleEN:'Irregular gearr: plural = gearra.',
+   examples:'gearr: gearr / girre / gearra'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'fliuch',baseEN:'wet',
+   context:'brat na fearthainne ___',contextEN:'the cover of the ___ rain',
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Fliuch</em> is irregular. The gen. sg. fem. involves a vowel shift, similar to <em>gearr</em>.',
+   answer:'fliche',options:['fliche','fliuch','fliucha','fliuchach'],
+   ruleGA:'<em>Fliuch</em> (neamhrialta): Gin. Uatha Bain. = <em>fliche</em>.',ruleEN:'Irregular fliuch: gen. sg. fem. = fliche.',
+   examples:'fliuch: fliuch / fliche / fliucha'},
+
+  // ═══════ NOUN + ADJECTIVE PHRASES ═══════
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'mór',baseEN:'big',
+   context:'cúiseanna an chogaidh ___',contextEN:'the causes of the ___ war',
+   contextLabel:'Gin. Uatha Fir. + séimhiú',
+   hint:'<em>Mór</em> in the gen. sg. masc.: broad consonant → slenderise. After a masculine genitive noun, an additional change also applies.',
+   answer:'mhóir',options:['mhóir','móire','mhóire','móra'],
+   ruleGA:'Gin. Uatha Fir. (leathan): caol + séimhiú i ndiaidh ainmfhocail fhirinscnigh.',ruleEN:'Gen. sg. masc.: slenderise + lenite after masc. noun.',
+   examples:'an cogadh mór → cúiseanna an chogaidh mhóir'},
+
+  {cat:'1d',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'fada',baseEN:'long',
+   context:'i lár an bhóthair ___',contextEN:'in the middle of the ___ road',
+   contextLabel:'Gin. Uatha Fir. – 3ú Díochlaonadh + séimhiú',
+   hint:'<em>Fada</em> ends in a vowel (3rd Decl. adj.) so the form does not change. But after a masculine genitive noun, an additional change applies to any adjective.',
+   answer:'fhada',options:['fhada','fada','fadaigh','fadaí'],
+   ruleGA:'3ú Díochlaonadh: gan athrú ach séimhítear i ndiaidh ainmfhocail fhirinscnigh sa ghinideach.',ruleEN:'3rd Decl. adj.: form unchanged but lenited after masc. gen. noun.',
+   examples:'i lár an bhóthair fhada; saothar an léachtóra cháiliúil'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'fada',baseEN:'long',
+   context:'i gcaitheamh na sráide ___',contextEN:'along the ___ street',
+   contextLabel:'Gin. Uatha Bain. – 3ú Díochlaonadh',
+   hint:'<em>Fada</em> – 3rd Decl. adj. After a feminine genitive noun, no lenition occurs and the vowel-ending form is unchanged.',
+   answer:'fada',options:['fada','fhada','fadaí','fadacha'],
+   ruleGA:'3ú Díochlaonadh (bain.): gan athrú, gan séimhiú.',ruleEN:'3rd Decl. adj. after fem. gen. noun: no change, no lenition.',
+   examples:'ar feadh na sráide fada; stair na tíre cróga'},
+
+  {cat:'1d',badge:'iol',badgeText:'Tréaniolra',base:'mór',baseEN:'big',
+   context:'cúiseanna na gcogaí ___',contextEN:'the causes of the ___ wars',
+   contextLabel:'Ginideach Iolra – tréaniolra',
+   hint:'This is a genitive plural with a <em>strong plural</em> (tréaniolra: the plural form = the genitive singular). The adjective uses its plural form.',
+   answer:'móra',options:['móra','mhóir','mór','móire'],
+   ruleGA:'Ginideach Iolra (tréaniolra): aidiacht san fhoirm iolra.',ruleEN:'Gen. pl. (strong plural): adjective stays in plural form.',
+   examples:'na cogaí móra → cúiseanna na gcogaí móra'},
+
+  {cat:'1d',badge:'iol',badgeText:'Lagiolra / Gin. Iolra',base:'mór',baseEN:'big',
+   context:'údar na leabhar ___',contextEN:'the author of the ___ books',
+   contextLabel:'Ginideach Iolra – lagiolra',
+   hint:'This uses a <em>weak plural</em> (lagiolra: the genitive plural = nominative singular). The adjective reverts to its singular form.',
+   answer:'mór',options:['mór','móra','mhóir','móire'],
+   ruleGA:'Ginideach Iolra (lagiolra): filleann an aidiacht ar a foirm uatha.',ruleEN:'Gen. pl. (weak plural): adjective reverts to singular form.',
+   examples:'na leabhair mhóra → údar na leabhar mór'},
+
+  {cat:'2d',badge:'iol',badgeText:'Lagiolra / Gin. Iolra',base:'cáiliúil',baseEN:'famous',
+   context:'brí na bhfocal ___',contextEN:'the meaning of the ___ words',
+   contextLabel:'Ginideach Iolra – lagiolra',
+   hint:'A <em>weak plural</em> (lagiolra). In the genitive plural with a weak plural noun, the adjective reverts to its singular form.',
+   answer:'cáiliúil',options:['cáiliúil','cáiliúla','cáiliúile','cáiliúlacha'],
+   ruleGA:'Ginideach Iolra (lagiolra): foirm uatha.',ruleEN:'Gen. pl. (weak plural): adjective in singular form.',
+   examples:'na focail cháiliúla → brí na bhfocal cáiliúil'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Fir.',base:'bocht',baseEN:'poor',
+   context:'sláinte an duine ___',contextEN:"the ___ person's health",
+   contextLabel:'Ginideach Uatha Firinscneach + séimhiú',
+   hint:'<em>Bocht</em> is irregular in the gen. sg. masc.: it does not slenderise, but an additional change applies after a masculine genitive noun.',
+   answer:'bhoicht',options:['bhoicht','bhochta','bocht','bhoichte'],
+   ruleGA:'<em>Bocht</em>: Gin. Uatha Fir. = <em>bhoicht</em> (séimhiú, gan caoladh).',ruleEN:'Bocht: gen. sg. masc. = bhoicht (lenition only, no slenderising).',
+   examples:'an duine bocht → sláinte an duine bhoicht'},
+
+  {cat:'1d',badge:'iol',badgeText:'Iolra',base:'bocht',baseEN:'poor',
+   context:'na daoine ___',contextEN:'the ___ people',
+   contextLabel:'Ainmneach Iolra',
+   hint:'<em>Bocht</em> – broad consonant. The plural follows the standard 1st Decl. rule for broad-ending adjectives.',
+   answer:'bochta',options:['bochta','bhoicht','bocht','bochtaigh'],
+   ruleGA:'<em>Bocht</em>: Iolra = <em>bochta</em>.',ruleEN:'Bocht: plural = bochta.',
+   examples:'na daoine bochta; na Gaeil bhochta'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'cúng',baseEN:'narrow',
+   context:'leithead na sráide ___',contextEN:'the width of the ___ street',
+   contextLabel:'Ginideach Uatha Baininscneach (neamhrialta)',
+   hint:'<em>Cúng</em> is irregular. The gen. sg. fem. involves a vowel shift, not simple slenderising + <em>-e</em>.',
+   answer:'cúinge',options:['cúinge','cúng','cúnga','cúingigh'],
+   ruleGA:'<em>Cúng</em> (neamhrialta): Gin. Uatha Bain. = <em>cúinge</em>.',ruleEN:'Irregular cúng: gen. sg. fem. = cúinge.',
+   examples:'an chanáil chúng → trasna na canála cúinge'},
+
+  {cat:'neamh',badge:'iol',badgeText:'Iolra',base:'cúng',baseEN:'narrow',
+   context:'na bealaigh ___',contextEN:'the ___ paths',
+   contextLabel:'Ainmneach Iolra',
+   hint:'<em>Cúng</em> is irregular. The plural takes a broad ending.',
+   answer:'cúnga',options:['cúnga','cúinge','cúng','cúingí'],
+   ruleGA:'<em>Cúng</em>: Iolra = <em>cúnga</em>.',ruleEN:'Cúng: plural = cúnga.',
+   examples:'na leapacha cúnga; na bealaigh chúnga'},
+
+  {cat:'neamh',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'riabhach',baseEN:'brindled/grey-streaked',
+   context:'laethanta na bó ___',contextEN:'the days of the ___ cow',
+   contextLabel:'Ginideach Uatha Baininscneach (-ach)',
+   hint:'<em>Riabhach</em> ends in <em>-ach</em>. Apply the standard rule for this ending in the gen. sg. fem.',
+   answer:'riabhaí',options:['riabhaí','riabhaigh','riabhacha','riabhach'],
+   ruleGA:'<em>-ach → -aí</em> sa Ghin. Uatha Bain.',ruleEN:'-ach ending: gen. sg. fem. = -aí.',
+   examples:'riabhach → riabhaí; bacach → bacaí; salach → salaí'},
+
+  {cat:'1d',badge:'gub',badgeText:'Gin. Uatha Fir.',base:'díreach',baseEN:'straight/direct',
+   context:'i lár an bhóthair fhada ___',contextEN:'in the middle of the long ___ road',
+   contextLabel:'Ginideach Uatha Firinscneach (-ach) + séimhiú',
+   hint:'<em>Díreach</em> ends in <em>-ach</em>. Apply the gen. sg. masc. rule for <em>-ach</em> endings, then remember what additional change occurs after a masculine genitive noun.',
+   answer:'dhírigh',options:['dhírigh','díreach','dírí','díreacha'],
+   ruleGA:'<em>Díreach</em>: Gin. Fir. = <em>dírigh</em> → séimhiú i ndiaidh ainmfhocail fhirinscnigh.',ruleEN:'-ach: gen. sg. masc. = -igh, then lenited after masc. noun.',
+   examples:'an bóthar fada díreach → i lár an bhóthair fhada dhírigh'},
+
+  {cat:'coim',badge:'gum',badgeText:'Gin. Uatha Fir.',base:'sleamhain',baseEN:'slippery/smooth',
+   context:'dromchla an chloich ___',contextEN:'the surface of the ___ stone',
+   contextLabel:'Ginideach Uatha Firinscneach (coimriú)',
+   hint:'<em>Sleamhain</em> – syncopated, already ends in a slender consonant. Think about the gen. sg. masc. rule for slender-ending syncopated adjectives.',
+   answer:'sleamhain',options:['sleamhain','sleamhaine','sleamhna','sleamhaigh'],
+   ruleGA:'Coimriú (<em>sleamhain</em>): Gin. Uatha Fir. = <em>gan athrú</em>.',ruleEN:'Syncopated sleamhain: gen. sg. masc. unchanged.',
+   examples:'sleamhain → sleamhain / sleamhaine / sleamhna'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'sleamhain',baseEN:'slippery/smooth',
+   context:'dromchla na leice ___',contextEN:'the surface of the ___ flagstone',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Sleamhain</em> – syncopated. In the gen. sg. fem., an <em>-e</em> is added.',
+   answer:'sleamhaine',options:['sleamhaine','sleamhain','sleamhna','sleamhaigh'],
+   ruleGA:'Coimriú (<em>sleamhain</em>): Gin. Uatha Bain. = <em>sleamhaine</em>.',ruleEN:'Syncopated sleamhain: gen. sg. fem. = sleamhaine.',
+   examples:'sleamhain → sleamhain / sleamhaine / sleamhna'},
+
+  {cat:'coim',badge:'gub',badgeText:'Gin. Uatha Bain.',base:'bodhar',baseEN:'deaf/noisy',
+   context:'torann na tráchta ___',contextEN:'the noise of the ___ traffic',
+   contextLabel:'Ginideach Uatha Baininscneach (coimriú)',
+   hint:'<em>Bodhar</em> – syncopated. In the gen. sg. fem., the inner vowel contracts and a suffix is added.',
+   answer:'bodhaire',options:['bodhaire','bodhar','bodhair','bodhrach'],
+   ruleGA:'Coimriú (<em>bodhar</em>): Gin. Uatha Bain. = <em>bodhaire</em>.',ruleEN:'Syncopated bodhar: gen. sg. fem. = bodhaire.',
+   examples:'bodhar → bodhair (Gin. Fir.) / bodhaire (Gin. Bain.)'},
+];
+
+let currentFilter='all', pool=[], shuffled=[], current=0, score=0, answered=0;
+let catScores={}, hintShown=false, lessonOpen=false;
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  restart();
+}
+function buildPool(){
+  pool = currentFilter==='all' ? [...ALL_QUESTIONS] : ALL_QUESTIONS.filter(q=>q.cat===currentFilter);
+}
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function toggleLesson(){
+  lessonOpen=!lessonOpen;
+  document.getElementById('lessonPanel').classList.toggle('open',lessonOpen);
+  document.getElementById('notaiBtn').classList.toggle('active',lessonOpen);
+  document.getElementById('tastailBtn').classList.toggle('active',!lessonOpen);
+  document.getElementById('quizSection').style.display=lessonOpen?'none':'block';
+}
+function closeLesson(){
+  lessonOpen=false;
+  document.getElementById('lessonPanel').classList.remove('open');
+  document.getElementById('notaiBtn').classList.remove('active');
+  document.getElementById('tastailBtn').classList.add('active');
+  document.getElementById('quizSection').style.display='block';
+}
+function toggleHint(){
+  hintShown=!hintShown;
+  document.getElementById('hintBox').classList.toggle('visible',hintShown);
+  const btn=document.getElementById('hintToggle');
+  btn.classList.toggle('open',hintShown);
+  document.getElementById('hintBtnText').textContent=hintShown?'Leid ✓':'Leid';
+}
+function init(){
+  buildPool(); shuffled=shuffle(pool);
+  current=0; score=0; answered=0;
+  catScores={'1d':[0,0],'2d':[0,0],'3d':[0,0],'coim':[0,0],'neamh':[0,0]};
+  document.getElementById('results').style.display='none';
+  document.getElementById('questionCard').style.display='block';
+  document.getElementById('progressFill').style.width='0%';
+  loadQuestion();
+}
+function loadQuestion(){
+  const q=shuffled[current];
+  hintShown=false;
+  const badge=document.getElementById('formBadge');
+  badge.className='form-badge badge-'+q.badge; badge.textContent=q.badgeText;
+  const catLabels={'1d':'1ú Díochlaonadh','2d':'2ú Díochlaonadh','3d':'3ú Díochlaonadh','coim':'Coimriú','neamh':'Neamhrialta'};
+  document.getElementById('catTag').textContent=catLabels[q.cat]||'';
+  // Irish context phrase with base adjective + English translation
+  document.getElementById('contextPhrase').innerHTML=
+    q.context.replace('___','<span class="blank">___</span>')+
+    ' <span class="base-ga">'+q.base+'</span> <span class="base-en">('+q.baseEN+')</span>';
+  // English context
+  document.getElementById('contextEn').innerHTML=
+    '<em>'+q.contextEN.replace('___','<span class="blank-en">___</span>')+'</em>';
+  document.getElementById('contextLabel').textContent=q.contextLabel;
+  document.getElementById('hintText').innerHTML=q.hint;
+  document.getElementById('hintBox').classList.remove('visible');
+  const htBtn=document.getElementById('hintToggle');
+  htBtn.classList.remove('open'); htBtn.disabled=false;
+  document.getElementById('hintBtnText').textContent='Leid';
+  const opts=shuffle(q.options);
+  const grid=document.getElementById('optionsGrid');
+  grid.innerHTML='';
+  opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn'; btn.textContent=opt;
+    btn.onclick=()=>answer(opt);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback').style.display='none';
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('questionCount').textContent='Ceist '+(current+1)+' de '+shuffled.length;
+  document.getElementById('progressFill').style.width=(current/shuffled.length*100)+'%';
+  updateScore();
+}
+function updateScore(){ document.getElementById('scoreCount').textContent='✦ '+score+' / '+answered; }
+function answer(chosen){
+  const q=shuffled[current];
+  const correct=chosen===q.answer;
+  answered++; if(correct)score++;
+  if(!catScores[q.cat])catScores[q.cat]=[0,0];
+  catScores[q.cat][1]++;
+  if(correct)catScores[q.cat][0]++;
+  document.getElementById('hintToggle').disabled=true;
+  document.querySelectorAll('.opt-btn').forEach(btn=>{
+    btn.disabled=true;
+    if(btn.textContent===q.answer)btn.classList.add(correct?'correct':'show-correct');
+    else if(btn.textContent===chosen&&!correct)btn.classList.add('wrong');
+  });
+  const fb=document.getElementById('feedback');
+  fb.className='feedback '+(correct?'correct-fb':'wrong-fb');
+  fb.style.display='block';
+  document.getElementById('fbHeader').innerHTML=correct
+    ?'<span class="fb-correct-text">✓ Ceart! <em>'+q.answer+'</em></span>'
+    :'<span class="fb-wrong-text">✗ Mícheart. Is í <em>'+q.answer+'</em> an fhoirm cheart.</span>';
+  document.getElementById('ruleText').innerHTML=q.ruleGA+'<br><span style="color:var(--text-muted);font-size:0.84em;font-style:italic;">'+q.ruleEN+'</span>';
+  document.getElementById('ruleExamples').textContent=q.examples;
+  // fill blank with answer + keep base adjective visible
+  document.getElementById('contextPhrase').innerHTML=
+    q.context.replace('___','<span class="blank" style="border-color:'+(correct?'var(--green-bright)':'var(--red-bright)')+';color:var(--green-bright);animation:none">'+q.answer+'</span>')+
+    ' <span class="base-ga">'+q.base+'</span> <span class="base-en">('+q.baseEN+')</span>';
+  document.getElementById('nextBtn').style.display='block';
+  updateScore();
+}
+function nextQuestion(){ current++; if(current>=shuffled.length){showResults();return;} loadQuestion(); }
+function showResults(){
+  document.getElementById('questionCard').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('results').style.display='block';
+  const pct=Math.round(score/shuffled.length*100);
+  document.getElementById('finalPct').textContent=pct+'%';
+  document.getElementById('finalFraction').textContent=score+' as '+shuffled.length+' ceart';
+  const catLabels={'1d':'1ú Díochl.','2d':'2ú Díochl.','3d':'3ú Díochl.','coim':'Coimriú','neamh':'Neamhrialta'};
+  const bd=document.getElementById('breakdown'); bd.innerHTML='';
+  Object.entries(catScores).forEach(([k,[s,t]])=>{
+    if(t>0)bd.innerHTML+='<div class="breakdown-item"><span class="bd-label">'+catLabels[k]+'</span><span class="bd-score">'+s+'/'+t+'</span></div>';
+  });
+  const msgs=['Ná bíodh díomá ort – tá na rialacha seo casta. Triail na catagóirí ar leith!','Tá dul chun cinn á dhéanamh agat. Féach ar an gcatagóir is laige thuas.','Go maith! Dírígh ar na haidiachtaí coimrithe nó neamhrialta más gá.','Iontach maith! Tá tuiscint chuimsitheach agat ar na rialacha.','Ar fheabhas ar fad! Tá díochlaonadh na n-aidiachtaí ar eolas go foirfe agat.'];
+  document.getElementById('resultsMsg').textContent=msgs[pct<40?0:pct<55?1:pct<70?2:pct<85?3:4];
+}
+function restart(){ init(); }
+
+// Wrap quiz in a div for show/hide
+document.addEventListener('DOMContentLoaded',()=>{
+  const qc=document.querySelector('.quiz-container');
+  const wrapper=document.createElement('div');
+  wrapper.id='quizSection';
+  qc.parentNode.insertBefore(wrapper,qc);
+  wrapper.appendChild(qc);
+});
+init();
+</script>
+</body>
+</html>
